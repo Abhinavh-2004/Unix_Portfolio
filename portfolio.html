@@ -3,64 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Abhinavh's interactive terminal portfolio">
     <title>Abhinavh's Terminal Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <style>
-        .prompt-measure {
-            position: absolute;
-            visibility: hidden;
-            height: auto;
-            width: auto;
-            white-space: nowrap;
-            font-family: 'Ubuntu Mono', monospace;
-            padding: 0;
-        }
-    </style>
-    <main>
-        <!-- ASCII Banner with aria-hidden since it's decorative -->
-        <pre class="ascii-banner" id="banner" aria-hidden="true">
-        ,---.  ,-----.  ,--.  ,--.,--.,--.  ,--.  ,---.,--.   ,--.,--.  ,--.,--. ,---.   
-        /  O  \ |  |) /_ |  '--'  ||  ||  ,'.|  | /  O  \\  `.'  / |  '--'  ||  |'   .-'  
-       |  .-.  ||  .-.  \|  .--.  ||  ||  |' '  ||  .-.  |\     /  |  .--.  |`-' `.  `-.  
-       |  | |  ||  '--' /|  |  |  ||  ||  | `   ||  | |  | \   /   |  |  |  |    .-'    | 
-       `--' `--'`------' `--'  `--'`--'`--'  `--'`--' `--'  `-'    `--'  `--'    `-----'  
-       ,------.  ,-----. ,------. ,--------.,------. ,-----. ,--.   ,--. ,-----.          
-       |  .--. ''  .-.  '|  .--. ''--.  .--'|  .---''  .-.  '|  |   |  |'  .-.  '         
-       |  '--' ||  | |  ||  '--'.'   |  |   |  `--, |  | |  ||  |   |  ||  | |  |         
-       |  | --' '  '-'  '|  |\  \    |  |   |  |`   '  '-'  '|  '--.|  |'  '-'  '         
-       `--'      `-----' `--' '--'   `--'   `--'     `-----' `-----'`--' `-----'          
-        </pre>
-
-        <!-- Terminal Container -->
-        <div class="terminal-container" role="application" aria-label="Interactive terminal">
-            <div class="terminal-header">
-                <div class="header-buttons">
-                    <span class="close-btn" aria-hidden="true"></span>
-                    <span class="minimize-btn" aria-hidden="true"></span>
-                    <span class="maximize-btn" aria-hidden="true"></span>
-                </div>
-                <div class="header-title">abhinavh@portfolio: ~</div>
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="header-buttons">
+                <span class="close-btn"></span>
+                <span class="minimize-btn"></span>
+                <span class="maximize-btn"></span>
             </div>
-            
-            <div class="terminal-body" id="terminal">
-                <div class="output" id="output">
-                    <div class="welcome-message">
-                        Welcome to Abhinavh's interactive portfolio.<br>
-                        Type <span class="command">help</span> to see available commands.
-                    </div>
-                    <div class="prompt-line">
-                        <span class="user">abhinavh@portfolio</span>:<span class="directory">~</span>$ 
-                        <span class="cursor" aria-hidden="true">█</span>
-                    </div>
+            <div class="header-title">abhinavh@portfolio: ~</div>
+        </div>
+        
+        <div class="terminal-body" id="terminal">
+            <div class="ascii-banner" id="banner" aria-hidden="true">
+                ,---.  ,-----.  ,--.  ,--.,--.,--.  ,--.  ,---.,--.   ,--.,--.  ,--.,--. ,---.   
+                /  O  \ |  |) /_ |  '--'  ||  ||  ,'.|  | /  O  \\  `.'  / |  '--'  ||  |'   .-'  
+               |  .-.  ||  .-.  \|  .--.  ||  ||  |' '  ||  .-.  |\     /  |  .--.  |`-' `.  `-.  
+               |  | |  ||  '--' /|  |  |  ||  ||  | `   ||  | |  | \   /   |  |  |  |    .-'    | 
+               `--' `--'`------' `--'  `--'`--'`--'  `--'`--' `--'  `-'    `--'  `--'    `-----'  
+               ,------.  ,-----. ,------. ,--------.,------. ,-----. ,--.   ,--. ,-----.          
+               |  .--. ''  .-.  '|  .--. ''--.  .--'|  .---''  .-.  '|  |   |  |'  .-.  '         
+               |  '--' ||  | |  ||  '--'.'   |  |   |  `--, |  | |  ||  |   |  ||  | |  |         
+               |  | --' '  '-'  '|  |\  \    |  |   |  |`   '  '-'  '|  '--.|  |'  '-'  '         
+               `--'      `-----' `--' '--'   `--'   `--'     `-----' `-----'`--' `-----'
+            </div>
+            <div class="output" id="output">
+                <div class="welcome-message">
+                    Welcome to Abhinavh's interactive portfolio.<br>
+                    Type <span class="command">help</span> to see available commands.
+                </div>
+            </div>
+            <div class="input-container">
+                <span class="prompt">abhinavh@portfolio:~$ </span>
+                <div class="input-wrapper">
+                    <input type="text" class="command-input" autofocus>
+                    <span class="cursor">█</span>
                 </div>
             </div>
         </div>
-    </main>
-
-    <script src="script.js" defer></script>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>

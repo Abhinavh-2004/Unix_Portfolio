@@ -1,199 +1,143 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
-    // Create input element
-    const inputLine = document.createElement('div');
-    inputLine.className = 'input-line';
-    inputLine.dataset.prompt = 'abhinavh@portfolio:~$ '; // For the visible prompt
+    const terminal = document.getElementById('terminal');
+    const output = document.getElementById('output');
+    const input = document.querySelector('.command-input');
+    const cursor = document.querySelector('.cursor');
+    let commandHistory = [];
+    let historyIndex = -1;
 
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.className = 'command-input';
-    input.setAttribute('aria-label', 'Terminal command input');
-    inputLine.appendChild(input);
-    output.appendChild(inputLine);
+    // Update cursor position
+    function updateCursor() {
+        const inputWidth = getTextWidth(input.value, '14px Ubuntu Mono');
+        cursor.style.left = `${inputWidth}px`;
+    }
 
-    // Calculate prompt width for proper alignment
-    const promptSpan = document.createElement('span');
-    promptSpan.className = 'prompt-measure';
-    promptSpan.textContent = 'abhinavh@portfolio:~$ ';
-    document.body.appendChild(promptSpan);
-    const promptWidth = promptSpan.offsetWidth;
-    document.body.removeChild(promptSpan);
-    document.documentElement.style.setProperty('--prompt-width', `${promptWidth}px`);
-
-    input.focus();
+    // Helper function to calculate text width
+    function getTextWidth(text, font) {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        context.font = font;
+        return context.measureText(text).width;
+    }
 
     // Command definitions
     const commands = {
-        'whois': 'Abhinavh is a passionate developer with expertise in Linux systems, bash scripting, and data analysis. Currently pursuing Computer Science with a focus on systems programming.',
-        'whoami': 'You are a valued visitor to my interactive portfolio!',
-        'social': createSocialLinks(),
-        'secret': 'The secret password is "portfolio123" (but please don\'t use this for anything important!)',
-        'projects': createProjectLinks(),
-        'history': showCommandHistory,
-        'help': showHelp,
-        'email': 'Contact should be initiated through my LinkedIn profile only.',
-        'clear': clearTerminal,
-        'banner': showBanner
+        'whois': 'Abhinavh is a passionate developer with expertise in Linux systems,\n' +
+                 'bash scripting, and data analysis. Currently pursuing Computer Science\n' +
+                 'with a focus on systems programming.',
+        
+        'whoami': 'You are a visitor to my interactive portfolio terminal!',
+        
+        'social': 'Connect with me:\n' +
+        '• <a href="https://www.linkedin.com/in/abhinavhparthiban/" target="_blank" class="terminal-link">LinkedIn</a>\n' +
+        '• <a href="https://github.com/Abhinavh-2004" target="_blank" class="terminal-link">GitHub</a>',
+        
+        'projects': 'My projects:\n' +
+                   '1. File Management System (Bash): https://github.com/Abhinavh-2004/file_managament_system_using_bash\n' +
+                   '2. Algorithm Runtime Analysis:    https://github.com/Abhinavh-2004/Graphing-the-run-times-of-bubble-sort',
+        
+        'history': () => commandHistory.length ? commandHistory.map((cmd, i) => `${i + 1}: ${cmd}`).join('\n') : 'No history yet',
+        
+        'help': 'Available commands:\n' +
+                'whois    - About me\n' +
+                'whoami   - Who are you?\n' +
+                'social   - My social links\n' +
+                'projects - My coding projects\n' +
+                'history  - Command history\n' +
+                'clear    - Clear terminal\n' +
+                'help     - Show this help',
+        
+        'clear': () => { output.innerHTML = ''; return ''; },
+        
+        'banner': () => { return document.getElementById('banner').textContent; }
     };
 
-    // Command functions
-    function createSocialLinks() {
-        return `
-        Connect with me:
-        • <a href="https://www.linkedin.com/in/abhinavhparthiban/" target="_blank" class="terminal-link">LinkedIn</a> - Professional profile
-        • <a href="https://github.com/Abhinavh-2004" target="_blank" class="terminal-link">GitHub</a> - Code repositories
-        `;
-    }
-
-    function createProjectLinks() {
-        return `
-        My featured projects:
-        1. <a href="https://github.com/Abhinavh-2004/file_managament_system_using_bash" target="_blank" class="terminal-link">File Management System</a> - WSL file management utility
-        2. <a href="https://github.com/Abhinavh-2004/Graphing-the-run-times-of-bubble-sort-and-finding-the-covariance-between-the-run-times" target="_blank" class="terminal-link">Algorithm Runtime Analysis</a> - Sorting algorithm visualizations
-        `;
-    }
-
-    function showCommandHistory() {
-        return commandHistory.length > 0 
-            ? commandHistory.map((cmd, i) => `${i + 1}: ${cmd}`).join('\n')
-            : 'No commands in history yet';
-    }
-
-    function showHelp() {
-        return `Available commands:
-whois          Display my professional background
-whoami         Identify the current user
-social         View my professional networks
-projects       Explore my coding projects
-history        View command history
-help           Show available commands
-clear          Reset the terminal
-banner         Display the header art`;
-    }
-
-    function clearTerminal() {
-        output.innerHTML = '';
-        output.appendChild(inputLine);
-        input.focus();
-    }
-
-    function showBanner() {
-        const bannerClone = banner.cloneNode(true);
-        bannerClone.removeAttribute('id');
-        output.insertBefore(bannerClone, inputLine);
-    }
-
-    // Command processing
+    // Process commands
     function processCommand(command) {
         if (!command.trim()) return;
         
-        // Add to history
         commandHistory.push(command);
         historyIndex = commandHistory.length;
-        currentInput = '';
         
-        // Display command
-        displayCommand(command);
-        
-        // Execute and display output
-        displayOutput(command);
-        
-        // Reset input and scroll
-        input.value = '';
-        terminal.scrollTop = terminal.scrollHeight;
-    }
-
-    function displayCommand(cmd) {
+        // Display the executed command
         const commandLine = document.createElement('div');
         commandLine.className = 'executed-command';
-        commandLine.innerHTML = `
-            <span class="user">abhinavh@portfolio</span>:
-            <span class="directory">~</span>$ ${cmd}
-        `;
-        output.insertBefore(commandLine, inputLine);
-    }
-
-    function displayOutput(cmd) {
+        commandLine.textContent = `abhinavh@portfolio:~$ ${command}`;
+        output.appendChild(commandLine);
+        
+        // Process and display output
         const response = document.createElement('div');
         response.className = 'command-output';
         
-        if (commands.hasOwnProperty(cmd)) {
-            const commandResult = commands[cmd];
-            
-            if (typeof commandResult === 'function') {
-                const result = commandResult();
-                response.innerHTML = typeof result === 'string' ? result : '';
-            } else {
-                response.innerHTML = commandResult;
-            }
+        if (commands.hasOwnProperty(command)) {
+            const result = typeof commands[command] === 'function' 
+                ? commands[command]() 
+                : commands[command];
+            response.innerHTML = result;
         } else {
-            response.textContent = `${cmd}: command not found. Type 'help' for available commands.`;
+            response.textContent = `${command}: command not found`;
         }
         
-        output.insertBefore(response, inputLine);
+        output.appendChild(response);
+        terminal.scrollTop = terminal.scrollHeight;
     }
 
     // Input handling
+    input.addEventListener('input', updateCursor);
+    
     input.addEventListener('keydown', function(e) {
         switch(e.key) {
             case 'Enter':
                 processCommand(input.value.trim());
+                input.value = '';
+                updateCursor();
                 break;
                 
             case 'ArrowUp':
                 e.preventDefault();
-                navigateHistory(-1);
+                if (commandHistory.length > 0) {
+                    historyIndex = Math.max(historyIndex - 1, 0);
+                    input.value = commandHistory[historyIndex] || '';
+                    updateCursor();
+                }
                 break;
                 
             case 'ArrowDown':
                 e.preventDefault();
-                navigateHistory(1);
+                if (commandHistory.length > 0) {
+                    historyIndex = Math.min(historyIndex + 1, commandHistory.length);
+                    input.value = historyIndex < commandHistory.length 
+                        ? commandHistory[historyIndex] 
+                        : '';
+                    updateCursor();
+                }
                 break;
                 
             case 'Tab':
                 e.preventDefault();
-                autoComplete();
+                const partial = input.value.trim();
+                const matches = Object.keys(commands).filter(cmd => cmd.startsWith(partial));
+                if (matches.length === 1) {
+                    input.value = matches[0];
+                    updateCursor();
+                }
                 break;
                 
             case 'l':
                 if (e.ctrlKey) {
                     e.preventDefault();
-                    clearTerminal();
+                    output.innerHTML = '';
                 }
                 break;
         }
     });
 
-    function navigateHistory(direction) {
-        if (commandHistory.length === 0) return;
-        
-        if (direction === -1 && historyIndex > 0) {
-            historyIndex--;
-        } else if (direction === 1 && historyIndex < commandHistory.length - 1) {
-            historyIndex++;
-        } else if (direction === 1) {
-            historyIndex = commandHistory.length;
-        }
-        
-        input.value = historyIndex >= 0 && historyIndex < commandHistory.length 
-            ? commandHistory[historyIndex]
-            : currentInput;
-    }
+    // Focus the input and show cursor when clicking anywhere in terminal
+    terminal.addEventListener('click', () => {
+        input.focus();
+    });
 
-    function autoComplete() {
-        const partial = input.value.trim();
-        const matches = Object.keys(commands).filter(cmd => 
-            cmd.startsWith(partial)
-        );
-        
-        if (matches.length === 1) {
-            input.value = matches[0];
-        } else if (matches.length > 1) {
-            displayOutput(`Possible completions:\n${matches.join(' ')}`);
-        }
-    }
-
-    // Initial display
-    displayOutput('help');
+    // Initial help display
+    processCommand('help');
+    updateCursor();
 });

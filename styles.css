@@ -1,68 +1,172 @@
 :root {
-    /* Keep existing variables */
-    --terminal-height: 70vh; /* New variable for height */
+    --bg-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --green: #4E9A06;
+    --blue: #3465A4;
+    --yellow: #C4A000;
+    --red: #CC0000;
+    --cursor-color: #00ff00;
+    --header-bg: #2d0922;
+    --header-text: #aaaaaa;
 }
 
 body {
-    /* Keep existing properties */
-    padding: 40px 20px; /* Increased padding */
+    background-color: #000;
+    color: var(--text-color);
+    font-family: 'Ubuntu Mono', monospace;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    line-height: 1.5;
 }
 
-.terminal-container {
-    width: 90%; /* Increased width */
-    max-width: 1000px; /* Larger max width */
-    height: var(--terminal-height); /* Use variable */
+.terminal-window {
+    width: 90%;
+    max-width: 900px;
+    height: 70vh;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.terminal-header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 8px 12px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    font-size: 0.9em;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 8px;
+    margin-right: 10px;
+}
+
+.header-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.close-btn {
+    background-color: var(--red);
+}
+
+.minimize-btn {
+    background-color: var(--yellow);
+}
+
+.maximize-btn {
+    background-color: var(--green);
 }
 
 .terminal-body {
-    flex-grow: 1; /* Take up remaining space */
-    height: calc(100% - 36px); /* Subtract header height */
-    padding: 20px; /* Increased padding */
+    background-color: var(--bg-color);
+    height: calc(100% - 36px);
+    padding: 15px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
 }
 
+.ascii-banner {
+    color: var(--green);
+    margin-bottom: 20px;
+    line-height: 1.2;
+    white-space: pre;
+    font-weight: bold;
+}
+
 .output {
     flex-grow: 1;
+    margin-bottom: 10px;
+}
+
+.welcome-message {
+    margin-bottom: 15px;
+}
+
+.command {
+    color: var(--green);
+    font-weight: bold;
+}
+
+.input-container {
     display: flex;
-    flex-direction: column;
-    min-height: min-content; /* Important for proper sizing */
-}
-
-.input-line {
-    margin-top: auto; /* Push input to bottom */
     align-items: center;
-    padding: 10px 0;
-    position: relative; /* For cursor positioning */
+    margin-top: auto;
+    position: relative;
 }
 
-.input-line input {
+.prompt {
+    color: var(--green);
+    white-space: pre;
+}
+
+.input-wrapper {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.command-input {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-family: 'Ubuntu Mono', monospace;
+    flex-grow: 1;
+    outline: none;
+    caret-color: transparent;
+    padding: 0;
     position: absolute;
     left: 0;
     width: 100%;
-    background: transparent;
-    border: none;
-    color: transparent; /* Make text transparent */
-    caret-color: var(--cursor-color);
-    font: inherit;
-    padding-left: calc(var(--prompt-width) + 5px); /* Align with prompt */
-}
-
-.input-line::before {
-    content: attr(data-prompt);
-    pointer-events: none;
-    color: var(--text-color);
-}
-
-.prompt-line {
-    position: relative;
-    padding-right: 20px; /* Space for cursor */
 }
 
 .cursor {
-    position: absolute;
-    right: 0;
+    color: var(--cursor-color);
+    animation: blink 1s infinite;
+    position: relative;
+    left: 0;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Link styling */
+a {
+    color: var(--blue);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Command output styling */
+.command-output {
+    margin: 5px 0;
+    white-space: pre-wrap;
+}
+
+.executed-command {
+    color: var(--green);
+    margin: 5px 0;
+}
+.terminal-link {
+    color: var(--blue);
+    text-decoration: none;
+}
+
+.terminal-link:hover {
+    text-decoration: underline;
 }
