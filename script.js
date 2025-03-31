@@ -1,23 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
     // DOM Elements
-    const terminal = document.getElementById('terminal');
-    const output = document.getElementById('output');
-    const banner = document.getElementById('banner');
-    
-    // State management
-    let commandHistory = [];
-    let historyIndex = -1;
-    let currentInput = '';
-    
     // Create input element
     const inputLine = document.createElement('div');
     inputLine.className = 'input-line';
+    inputLine.dataset.prompt = 'abhinavh@portfolio:~$ '; // For the visible prompt
+
     const input = document.createElement('input');
     input.type = 'text';
     input.className = 'command-input';
     input.setAttribute('aria-label', 'Terminal command input');
     inputLine.appendChild(input);
     output.appendChild(inputLine);
+
+    // Calculate prompt width for proper alignment
+    const promptSpan = document.createElement('span');
+    promptSpan.className = 'prompt-measure';
+    promptSpan.textContent = 'abhinavh@portfolio:~$ ';
+    document.body.appendChild(promptSpan);
+    const promptWidth = promptSpan.offsetWidth;
+    document.body.removeChild(promptSpan);
+    document.documentElement.style.setProperty('--prompt-width', `${promptWidth}px`);
+
     input.focus();
 
     // Command definitions

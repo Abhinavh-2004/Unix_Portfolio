@@ -1,129 +1,68 @@
 :root {
-    --bg-color: #300a24;
-    --text-color: #ffffff;
-    --prompt-color: #33ff33;
-    --user-color: #ff6b00;
-    --dir-color: #4d90fe;
-    --header-bg: #2c001e;
-    --header-text: #ffffff;
-    --button-red: #ff5f56;
-    --button-yellow: #ffbd2e;
-    --button-green: #27c93f;
-    --cursor-color: #33ff33;
+    /* Keep existing variables */
+    --terminal-height: 70vh; /* New variable for height */
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: 'Ubuntu Mono', monospace;
-    line-height: 1.5;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    /* Keep existing properties */
+    padding: 40px 20px; /* Increased padding */
 }
 
 .terminal-container {
-    width: 80%;
-    max-width: 800px;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.terminal-header {
-    background-color: var(--header-bg);
-    color: var(--header-text);
-    padding: 8px 12px;
+    width: 90%; /* Increased width */
+    max-width: 1000px; /* Larger max width */
+    height: var(--terminal-height); /* Use variable */
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.header-buttons {
-    display: flex;
-    gap: 8px;
-}
-
-.header-buttons span {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.close-btn {
-    background-color: var(--button-red);
-}
-
-.minimize-btn {
-    background-color: var(--button-yellow);
-}
-
-.maximize-btn {
-    background-color: var(--button-green);
+    flex-direction: column;
 }
 
 .terminal-body {
-    background-color: var(--bg-color);
-    padding: 15px;
-    height: 500px;
+    flex-grow: 1; /* Take up remaining space */
+    height: calc(100% - 36px); /* Subtract header height */
+    padding: 20px; /* Increased padding */
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .output {
-    white-space: pre-wrap;
-}
-
-.welcome-message {
-    margin-bottom: 15px;
-    color: var(--text-color);
-}
-
-.command {
-    color: var(--prompt-color);
-    font-weight: bold;
-}
-
-.prompt-line {
+    flex-grow: 1;
     display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.user {
-    color: var(--user-color);
-    font-weight: bold;
-}
-
-.directory {
-    color: var(--dir-color);
-    font-weight: bold;
-}
-
-.cursor {
-    color: var(--cursor-color);
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+    flex-direction: column;
+    min-height: min-content; /* Important for proper sizing */
 }
 
 .input-line {
-    display: flex;
+    margin-top: auto; /* Push input to bottom */
     align-items: center;
+    padding: 10px 0;
+    position: relative; /* For cursor positioning */
 }
 
 .input-line input {
+    position: absolute;
+    left: 0;
+    width: 100%;
     background: transparent;
     border: none;
-    color: var(--text-color);
-    font-family: 'Ubuntu Mono', monospace;
-    flex-grow: 1;
-    outline: none;
+    color: transparent; /* Make text transparent */
     caret-color: var(--cursor-color);
+    font: inherit;
+    padding-left: calc(var(--prompt-width) + 5px); /* Align with prompt */
+}
+
+.input-line::before {
+    content: attr(data-prompt);
+    pointer-events: none;
+    color: var(--text-color);
+}
+
+.prompt-line {
+    position: relative;
+    padding-right: 20px; /* Space for cursor */
+}
+
+.cursor {
+    position: absolute;
+    right: 0;
 }
