@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         'projects': 'My projects:\n' +
             '1. <a href="https://github.com/Abhinavh-2004/file_managament_system_using_bash" target="_blank" rel="noopener noreferrer" class="terminal-link">File Management System (Bash)</a>\n' +
-            '2. <a href="https://github.com/Abhinavh-2004/Graphing-the-run-times-of-bubble-sort" target="_blank" rel="noopener noreferrer" class="terminal-link">Algorithm Runtime Analysis</a>',
+            '2. <a href="https://github.com/Abhinavh-2004/Graphing-the-run-times-of-bubble-sort-and-finding-the-covariance-between-the-run-times" target="_blank" rel="noopener noreferrer" class="terminal-link">Algorithm Runtime Analysis</a>',
         
         'history': () => commandHistory.length ? commandHistory.map((cmd, i) => `${i + 1}: ${cmd}`).join('\n') : 'No history yet',
         
