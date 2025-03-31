@@ -4,26 +4,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const input = document.querySelector('.command-input');
     
     const commands = {
-        'whois': 'Abhinavh is a passionate developer with expertise in...',
-        'whoami': 'You are a visitor to my portfolio site!',
-        'video': 'Opening YouTube... <a href="https://youtube.com" target="_blank">YouTube</a>',
-        'social': 'Twitter: @abhinavh\nGitHub: github.com/abhinavh',
+        'whois': 'Abhinavh is a passionate developer with expertise in Operating Systems, DSA and Java Development. He is currently trying to master Web Devlopment and Machine Learning',
+        'whoami': 'You are a visitor to my portfolio site! I hope you are a recuriter',
+        'social': 'LinkedIn: https://www.linkedin.com/in/abhinavhparthiban/\nGitHub: https://github.com/Abhinavh-2004',
         'secret': 'The password is "portfolio123"',
-        'projects': '1. Project A\n2. Project B\n3. Project C',
-        'history': 'No history yet',
+        'projects': 'File Management System Using Bash Script - https://github.com/Abhinavh-2004/file_managament_system_using_bash\n2. Graphing run times of sorting algorithms using Python - https://github.com/Abhinavh-2004/Graphing-the-run-times-of-bubble-sort-and-finding-the-covariance-between-the-run-times',
         'help': `Available commands:
 whois          Who is Abhinavh?
 whoami         Who are you?
-video          View YouTube videos
 social         Display social networks
 secret         Find the password
 projects       View coding projects
-history        View command history
 help           Display this help
 email          Do not email me
 clear          Clear terminal
 banner         Display the header`,
-        'email': 'Seriously, do not email me.',
+        'email': 'abhinavhparthibanmit@gmail.com',
         'clear': function() { output.innerHTML = ''; },
         'banner': function() { 
             const banner = document.getElementById('banner');
