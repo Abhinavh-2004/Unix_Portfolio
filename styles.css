@@ -1,32 +1,116 @@
+:root {
+    --bg-color: #300a24;
+    --text-color: #ffffff;
+    --prompt-color: #33ff33;
+    --user-color: #ff6b00;
+    --dir-color: #4d90fe;
+    --header-bg: #2c001e;
+    --header-text: #ffffff;
+    --button-red: #ff5f56;
+    --button-yellow: #ffbd2e;
+    --button-green: #27c93f;
+    --cursor-color: #33ff33;
+}
+
 body {
-    background-color: #1a1a1a;
-    color: #00ff00;
-    font-family: 'Courier New', monospace;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Ubuntu Mono', monospace;
+    line-height: 1.5;
     margin: 0;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .terminal-container {
+    width: 80%;
     max-width: 800px;
-    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.ascii-banner {
-    text-align: center;
-    color: #00ff00;
-    margin-bottom: 20px;
+.terminal-header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.terminal {
-    border: 1px solid #00ff00;
-    padding: 10px;
-    height: 400px;
+.header-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.header-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.close-btn {
+    background-color: var(--button-red);
+}
+
+.minimize-btn {
+    background-color: var(--button-yellow);
+}
+
+.maximize-btn {
+    background-color: var(--button-green);
+}
+
+.terminal-body {
+    background-color: var(--bg-color);
+    padding: 15px;
+    height: 500px;
     overflow-y: auto;
 }
 
-.output div {
-    margin-bottom: 5px;
+.output {
     white-space: pre-wrap;
+}
+
+.welcome-message {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.command {
+    color: var(--prompt-color);
+    font-weight: bold;
+}
+
+.prompt-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.user {
+    color: var(--user-color);
+    font-weight: bold;
+}
+
+.directory {
+    color: var(--dir-color);
+    font-weight: bold;
+}
+
+.cursor {
+    color: var(--cursor-color);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .input-line {
@@ -34,15 +118,12 @@ body {
     align-items: center;
 }
 
-.prompt {
-    margin-right: 5px;
-}
-
-.command-input {
+.input-line input {
     background: transparent;
     border: none;
-    color: #00ff00;
-    font-family: 'Courier New', monospace;
+    color: var(--text-color);
+    font-family: 'Ubuntu Mono', monospace;
     flex-grow: 1;
     outline: none;
+    caret-color: var(--cursor-color);
 }
