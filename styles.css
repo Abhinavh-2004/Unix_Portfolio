@@ -1,0 +1,48 @@
+body {
+    background-color: #1a1a1a;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    margin: 0;
+    padding: 20px;
+}
+
+.terminal-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.ascii-banner {
+    text-align: center;
+    color: #00ff00;
+    margin-bottom: 20px;
+}
+
+.terminal {
+    border: 1px solid #00ff00;
+    padding: 10px;
+    height: 400px;
+    overflow-y: auto;
+}
+
+.output div {
+    margin-bottom: 5px;
+    white-space: pre-wrap;
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+}
+
+.prompt {
+    margin-right: 5px;
+}
+
+.command-input {
+    background: transparent;
+    border: none;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    flex-grow: 1;
+    outline: none;
+}
