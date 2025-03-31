@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
         '• <a href="https://github.com/Abhinavh-2004" target="_blank" class="terminal-link">GitHub</a>',
         
         'projects': 'My projects:\n' +
-                   '1. File Management System (Bash): https://github.com/Abhinavh-2004/file_managament_system_using_bash\n' +
-                   '2. Algorithm Runtime Analysis:    https://github.com/Abhinavh-2004/Graphing-the-run-times-of-bubble-sort',
+            '1. <a href="https://github.com/Abhinavh-2004/file_managament_system_using_bash" target="_blank" rel="noopener noreferrer" class="terminal-link">File Management System (Bash)</a>\n' +
+            '2. <a href="https://github.com/Abhinavh-2004/Graphing-the-run-times-of-bubble-sort" target="_blank" rel="noopener noreferrer" class="terminal-link">Algorithm Runtime Analysis</a>',
         
         'history': () => commandHistory.length ? commandHistory.map((cmd, i) => `${i + 1}: ${cmd}`).join('\n') : 'No history yet',
         
